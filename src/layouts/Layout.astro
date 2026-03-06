@@ -13,10 +13,14 @@ const { title = 'Padel Camp Mallorca' } = Astro.props;
     <link rel="icon" type="image/png" href="/assets/checkmark.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
+    <!-- Non-render-blocking font load -->
+    <link rel="preload" as="style"
       href="https://fonts.googleapis.com/css2?family=Anton+SC&family=Inter:wght@400;500;600;700;800;900&family=Roboto+Flex:opsz,wdth,wght@8..144,100,100..900&display=swap"
-      rel="stylesheet"
-    />
+      onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript>
+      <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Anton+SC&family=Inter:wght@400;500;600;700;800;900&family=Roboto+Flex:opsz,wdth,wght@8..144,100,100..900&display=swap" />
+    </noscript>
     <style>
       @media (prefers-reduced-motion: no-preference) {
         [data-animate] {

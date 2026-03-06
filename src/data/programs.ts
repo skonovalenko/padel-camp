@@ -1,7 +1,8 @@
+import type { ImageMetadata } from 'astro';
 import { assets } from '../config/assets';
 
 export interface ProgramTag { icon?: string; text: string; }
-export interface Program { title: string; img: string; desc: string; tags: ProgramTag[]; }
+export interface Program { title: string; img: ImageMetadata | string; desc: string; tags: ProgramTag[]; }
 
 export const programs: Program[] = [
   {

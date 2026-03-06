@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import Tag from '../components/ui/Tag.astro';
 import { programs } from '../data/programs';
 ---
@@ -47,8 +48,13 @@ import { programs } from '../data/programs';
         <!-- Image -->
         <div class="flex-1 min-w-[200px] max-w-[460px] aspect-[290/160] rounded-[12px]
                     shadow-[0px_2px_12px_0px_rgba(0,0,0,0.25)] overflow-hidden shrink-0">
-          <img src={program.img} alt={program.title}
-               class="w-full h-full object-cover object-top" />
+          {typeof program.img === 'string'
+            ? <img src={program.img} alt={program.title} loading="lazy"
+                   class="w-full h-full object-cover object-top" />
+            : <Image src={program.img} alt={program.title}
+                     loading="lazy" quality={75} format="jpeg"
+                     class="w-full h-full object-cover object-top" />
+          }
         </div>
 
         <!-- Description + footer -->
