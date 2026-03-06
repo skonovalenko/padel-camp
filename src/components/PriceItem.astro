@@ -1,0 +1,23 @@
+---
+import { assets } from '../config/assets';
+
+interface Props {
+  text: string;
+  variant?: 'dark' | 'light';
+  included?: boolean;
+}
+const { text, variant = 'dark', included = true } = Astro.props;
+---
+<li class="flex items-center gap-[8px]">
+  <img
+    src={included ? assets.checkmark : assets.checkmarkNegative}
+    alt={included ? "✓" : "✗"}
+    class="w-[12px] md:w-[24px] h-[12px] md:h-[24px] object-contain shrink-0"
+  />
+  <span class:list={[
+    "font-inter font-medium italic text-[12px] md:text-[16px] flex-1",
+    included
+      ? (variant === 'light' ? "text-main" : "text-white")
+      : (variant === 'light' ? "text-main/40" : "text-white/40"),
+  ]}>{text}</span>
+</li>

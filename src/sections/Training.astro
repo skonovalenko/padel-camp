@@ -1,0 +1,125 @@
+---
+import Tag from '../components/ui/Tag.astro';
+import { programs } from '../data/programs';
+---
+<section id="training" class="px-[10px] py-[24px] w-full">
+  <div data-animate="scale-in"
+       class="bg-main rounded-[24px] shadow-[0px_4px_24px_0px_rgba(0,0,0,0.25)]
+              p-[24px] md:px-[60px] md:pt-[36px] md:pb-[60px]
+              flex flex-col gap-[24px] md:gap-[26px]">
+
+    <!-- Tag + Title + Pagination -->
+    <div class="flex flex-col gap-[12px]">
+      <div><Tag text="Програма" /></div>
+      <div class="flex flex-wrap items-center justify-between gap-y-[10px]">
+        <h2 id="prog-title"
+            class="font-inter font-semibold text-[32px] md:text-[64px] text-white leading-normal">
+          {programs[0].title}
+        </h2>
+        <div class="flex gap-[12px] items-center">
+          <!-- Prev: white outline circle -->
+          <button id="prog-prev" aria-label="Попередній"
+                  class="w-[54px] h-[54px] rounded-full border border-white flex items-center justify-center
+                         shadow-[0px_2px_8px_0px_rgba(0,0,0,0.25)] hover:bg-white/10 transition-colors shrink-0">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M15 18l-6-6 6-6"/>
+            </svg>
+          </button>
+          <!-- Next: bg-bg filled circle -->
+          <button id="prog-next" aria-label="Наступний"
+                  class="w-[56px] h-[54px] rounded-full bg-bg flex items-center justify-center
+                         hover:bg-gray-200 transition-colors shrink-0">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0a2c5c"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 18l6-6-6-6"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slides -->
+    {programs.map((program, i) => (
+      <div class:list={["program-slide flex flex-wrap gap-[24px] md:gap-[100px] items-stretch", { "hidden": i > 0 }]}
+           data-title={program.title}>
+
+        <!-- Image -->
+        <div class="flex-1 min-w-[200px] max-w-[460px] aspect-[290/160] rounded-[12px]
+                    shadow-[0px_2px_12px_0px_rgba(0,0,0,0.25)] overflow-hidden shrink-0">
+          <img src={program.img} alt={program.title}
+               class="w-full h-full object-cover object-top" />
+        </div>
+
+        <!-- Description + footer -->
+        <div class="flex-1 min-w-[200px] flex flex-col justify-between gap-[24px]">
+          <p class="font-roboto font-medium text-[14px] md:text-[24px] text-bg leading-[1.4] md:leading-[28px]">
+            {program.desc}
+          </p>
+
+          <!-- Tags + counter -->
+          <div class="flex flex-wrap items-end justify-between gap-[4px]">
+            <div class="flex flex-wrap gap-[4px]">
+              {program.tags.map((tag) => (
+                <Tag text={tag.text} icon={tag.icon} />
+              ))}
+            </div>
+            <div class="flex items-end gap-[8px]">
+              <p class="font-roboto font-bold text-white leading-none">
+                <span class="text-[36px]">{i + 1}</span>
+                <span class="text-[24px] text-white/50">/{programs.length}</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<script>
+  const slides = document.querySelectorAll<HTMLElement>('.program-slide');
+  const titleEl = document.getElementById('prog-title');
+  let current = 0;
+  let busy = false;
+
+  function show(idx: number): void {
+    if (busy) return;
+    const next = (idx + slides.length) % slides.length;
+    if (next === current) return;
+    busy = true;
+
+    const outEl = slides[current];
+    const inEl = slides[next];
+    const goForward = idx > current || (current === slides.length - 1 && idx === 0);
+
+    // Animate out
+    outEl.style.transition = 'opacity 0.22s ease, transform 0.22s ease';
+    outEl.style.opacity = '0';
+    outEl.style.transform = goForward ? 'translateX(-24px)' : 'translateX(24px)';
+
+    setTimeout(() => {
+      outEl.classList.add('hidden');
+      outEl.style.cssText = '';
+
+      current = next;
+      if (titleEl) titleEl.textContent = inEl.dataset.title ?? '';
+
+      // Start in-el off-screen
+      inEl.style.cssText = `opacity:0;transform:translateX(${goForward ? '24px' : '-24px'});transition:none`;
+      inEl.classList.remove('hidden');
+
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          inEl.style.transition = 'opacity 0.32s cubic-bezier(0.16,1,0.3,1), transform 0.32s cubic-bezier(0.16,1,0.3,1)';
+          inEl.style.opacity = '1';
+          inEl.style.transform = 'none';
+          setTimeout(() => { inEl.style.cssText = ''; busy = false; }, 350);
+        });
+      });
+    }, 230);
+  }
+
+  document.getElementById('prog-prev')?.addEventListener('click', () => show(current - 1));
+  document.getElementById('prog-next')?.addEventListener('click', () => show(current + 1));
+</script>

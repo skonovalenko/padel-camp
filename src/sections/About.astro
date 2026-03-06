@@ -1,0 +1,44 @@
+---
+import SectionTag from '../components/ui/SectionTag.astro';
+import { stats } from '../data/stats';
+---
+<section id="about" class="flex flex-col items-center px-[24px] md:px-[66px] py-[24px] md:py-[67px] overflow-hidden">
+  <div class="flex flex-col gap-[44px] md:gap-[69px] items-center w-full">
+
+    <div class="flex flex-col gap-[16px] items-center w-full" data-animate="fade-up">
+      <SectionTag label="про нас" />
+
+      <div class="font-inter font-medium text-[24px] md:text-[36px] text-main text-center
+                  tracking-[0.48px] md:tracking-[0.72px] leading-[1.1] w-full">
+        <p class="mb-0">Виїзний спортивний вікенд для української спільноти</p>
+        <p class="mb-0">на <span class="font-bold">Mallorca</span> з професійним тренером —</p>
+        <p class="underline mb-0">більше, ніж тренування</p>
+        <p class="mb-0">Cистемна робота над грою, здорова конкуренція, підтримка та живе спілкування поза кортом</p>
+        <p>Спорт, прогрес і свої люди — в одному форматі</p>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="flex flex-wrap gap-x-[38px] md:gap-x-[132px] gap-y-[24px] justify-center text-center w-full">
+      {stats.map((stat, i) => {
+        const match = stat.value.match(/^(\d+)(\+?)$/);
+        const num = match ? match[1] : null;
+        const suffix = match ? match[2] : '';
+        return (
+          <div data-animate="fade-up" data-delay={String(150 + i * 100)}
+               class="flex flex-col gap-[4px] md:gap-[8px] items-center flex-1 min-w-[40px]">
+            <span
+              data-count={num ?? undefined}
+              data-count-suffix={suffix || undefined}
+              class="font-anton text-[48px] md:text-[65px] text-action leading-[54px] tracking-[-0.96px] md:tracking-[-1.3px]">
+              {stat.value}
+            </span>
+            <span class="font-inter font-bold text-[12px] md:text-[16px] text-main/50 tracking-[-0.24px] md:tracking-[-0.32px] leading-[16px]">
+              {stat.label}
+            </span>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</section>

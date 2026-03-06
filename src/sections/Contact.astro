@@ -1,0 +1,83 @@
+---
+import FormField from '../components/FormField.astro';
+import Button from '../components/ui/Button.astro';
+---
+<section id="contact" class="bg-main px-[24px] md:px-[60px] py-[24px] md:py-[70px] w-full">
+  <div class="flex flex-col md:flex-row gap-[12px] md:gap-[36px] items-start justify-center w-full">
+
+    <!-- Left side -->
+    <div class="flex flex-col gap-[8px] md:gap-[24px] flex-1 md:pl-[12px]" data-animate="slide-left">
+      <h2 class="font-inter font-black text-[32px] md:text-[48px] text-bg leading-normal">
+        Готові доєднатись?
+      </h2>
+      <p class="font-inter font-medium text-[12px] md:text-[16px] text-white leading-normal">
+        Розкажіть нам трохи про себе, і протягом робочого дня наш менеджер зв'яжеться з вами, щоб уточнити деталі
+      </p>
+
+
+      <div class="flex flex-col gap-[8px]">
+        <h3 class="font-inter font-extrabold text-[24px] text-bg leading-normal">Contact</h3>
+        <p class="font-inter font-medium text-[16px] text-white leading-normal">+34 112 340 566</p>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <div data-animate="slide-right" data-delay="100"
+         class="bg-bg rounded-[24px] shadow-[0px_4px_24px_0px_rgba(0,0,0,0.25)]
+                p-[12px] md:p-[24px] w-full md:max-w-[610px] md:min-w-[350px] shrink-0">
+      <div class="flex flex-col gap-[12px] md:gap-[24px] items-center">
+        <h3 class="font-inter font-black text-[18px] md:text-[24px] text-main text-center">
+          Розкажіть про себе
+        </h3>
+
+        <form id="contact-form" class="flex flex-col gap-[13px] md:gap-[17px] w-full" novalidate>
+
+          <!-- Name + Surname: stacked on mobile, side-by-side on desktop -->
+          <div class="flex flex-col gap-[13px] md:flex-row md:gap-[25px] md:items-end">
+            <div class="md:w-[160px] md:shrink-0">
+              <FormField label="Ім'я" name="name" />
+            </div>
+            <div class="md:flex-1">
+              <FormField label="Прізвище" name="surname" />
+            </div>
+          </div>
+
+          <FormField label="Номер телефону або нік в Telegram/Whatsapp" name="contact" />
+
+          <!-- Level + System side by side -->
+          <div class="flex gap-[30px] items-end">
+            <FormField label="Рівень гри" name="level" />
+            <FormField label="Система" name="system" placeholder="Playtomic" />
+          </div>
+
+          <FormField
+            label="Побажання щодо партнера (за наявності)"
+            name="partner"
+          />
+
+          <p class="font-roboto font-medium text-[10px] md:text-[14px] text-main text-right leading-normal">
+            *Після подання заявки ми зв'яжемося з вами для підтвердження участі.
+          </p>
+
+          <div class="flex justify-center">
+            <Button as="button" text="Надіслати" />
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Legal -->
+  <div class="mt-[10px] px-[12px]">
+    <p class="font-inter font-normal text-[7px] md:text-[10px] text-white text-right md:text-left leading-normal">
+      *Бронювання здійснюється виключно за умови внесення передоплати у розмірі 200 €. У разі скасування бронювання до 01.04.2026 року передоплата повертається у повному обсязі. У випадку скасування після 01.04.2026 року передоплата не повертається. Організатор не несе відповідальності за травми, нещасні випадки чи погіршення стану здоров'я учасників під час проведення кемпу.
+    </p>
+  </div>
+</section>
+
+<script>
+  document.getElementById('contact-form')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    // TODO: wire up real submission (e.g. Formspree, email API)
+  });
+</script>

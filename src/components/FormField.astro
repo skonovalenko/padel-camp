@@ -1,0 +1,18 @@
+---
+interface Props {
+  label: string;
+  name: string;
+  type?: string;
+  placeholder?: string;
+  textarea?: boolean;
+  rows?: number;
+}
+const { label, name, type = 'text', placeholder, textarea = false, rows = 3 } = Astro.props;
+---
+<div class="flex flex-col gap-[4px]">
+  <label for={name} class="form-label">{label}</label>
+  {textarea
+    ? <textarea id={name} {name} {rows} class:list={["form-input", "py-2 resize-none"]}></textarea>
+    : <input id={name} {type} {name} {placeholder} class:list={["form-input", "h-[32px] md:h-[42px] text-[12px] md:text-base"]} />
+  }
+</div>

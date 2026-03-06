@@ -1,0 +1,40 @@
+---
+import FAQItem from '../components/FAQItem.astro';
+import { assets } from '../config/assets';
+import { faqs } from '../data/faq';
+---
+<section id="faq" class="px-[24px] md:px-[70px] py-[24px] md:py-[60px] w-full">
+  <div class="flex flex-col gap-[24px] md:gap-[56px]">
+
+    <!-- Header -->
+    <div class="flex flex-col items-start" data-animate="fade-up">
+      <h2 class="font-inter font-semibold text-[36px] md:text-[64px] text-main leading-[36px] md:leading-[64px]">FAQ</h2>
+      <div class="h-[4px] w-[68px] md:w-[117px]">
+        <img src={assets.underlineFaq} alt="" class="w-full h-full" />
+      </div>
+    </div>
+
+    <!-- Mobile: accordion wrapper -->
+    <div class="md:hidden flex flex-col border-b border-main/50">
+      {faqs.map((item, i) => (
+        <div data-animate="fade-up" data-delay={String(i * 60)}>
+          <FAQItem item={item} />
+        </div>
+      ))}
+    </div>
+
+    <!-- Desktop: 2×3 grid -->
+    <div class="hidden md:grid md:grid-cols-2 gap-[24px]">
+      {faqs.map((item, i) => (
+        <div data-animate="fade-up" data-delay={String(i * 80)}>
+          <FAQItem item={item} />
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  details > summary::-webkit-details-marker { display: none; }
+</style>

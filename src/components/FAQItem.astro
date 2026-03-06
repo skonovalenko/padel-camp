@@ -1,0 +1,29 @@
+---
+import { assets } from '../config/assets';
+import type { FAQ } from '../data/faq';
+
+interface Props {
+  item: FAQ;
+}
+const { item } = Astro.props;
+---
+<!-- Mobile: accordion -->
+<details class="group border-t border-main/50 md:hidden">
+  <summary class="flex items-center gap-[8px] py-[8px] cursor-pointer list-none">
+    <img src={assets.checkmark} alt="" class="w-[16px] h-[16px] object-cover shrink-0" />
+    <h3 class="font-inter font-semibold text-[18px] text-main flex-1 leading-normal">{item.q}</h3>
+    <svg class="w-4 h-4 text-main shrink-0 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+    </svg>
+  </summary>
+  <p class="font-inter font-medium text-[14px] text-main leading-normal pb-[12px] pl-[24px]">{item.a}</p>
+</details>
+
+<!-- Desktop: flat -->
+<div class="hidden md:flex flex-col gap-[8px]">
+  <div class="flex items-center gap-[8px]">
+    <img src={assets.checkmark} alt="" class="w-[24px] h-[24px] object-cover shrink-0" />
+    <h3 class="font-inter font-semibold text-[24px] text-main flex-1 leading-normal">{item.q}</h3>
+  </div>
+  <p class="font-inter font-medium text-[16px] text-main leading-normal">{item.a}</p>
+</div>

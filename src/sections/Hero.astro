@@ -1,0 +1,100 @@
+---
+import { assets } from '../config/assets';
+import Button from '../components/ui/Button.astro';
+
+const navLinks = [
+  { href: '#about',    label: 'Кемп' },
+  { href: '#training', label: 'Програма' },
+  { href: '#schedule', label: 'Розклад' },
+  { href: '#price',    label: 'Ціна' },
+  { href: '#faq',      label: 'FAQ' },
+];
+---
+<section class="relative h-[696px] overflow-hidden">
+  <picture>
+    <source media="(max-width: 767px)" srcset={assets.heroMobile} />
+    <img src={assets.hero} alt="" data-hero-img
+         class="absolute inset-0 w-full h-full object-cover pointer-events-none" />
+  </picture>
+  <div class="absolute inset-0 bg-main/30"></div>
+
+  <!-- Mobile: two rows — each word fills 100% width -->
+  <div data-hero-enter="text"
+       class="min-[500px]:hidden absolute inset-x-0 top-0 pointer-events-none select-none overflow-hidden">
+    <p data-fit-hero class="font-anton text-white leading-[0.85] whitespace-nowrap m-0"
+       style="text-shadow: 0px 4px 24px rgba(0,0,0,0.25);">PADEL</p>
+    <p data-fit-hero class="font-anton text-white leading-[0.85] whitespace-nowrap m-0"
+       style="text-shadow: 0px 4px 24px rgba(0,0,0,0.25);">CAMP</p>
+  </div>
+
+  <!-- Desktop: one row — "PADEL CAMP" fills 100% width -->
+  <div data-hero-enter="text"
+       class="hidden min-[500px]:block absolute inset-x-0 top-0 pointer-events-none select-none overflow-hidden">
+    <p data-fit-hero class="font-anton text-white leading-[0.85] whitespace-nowrap"
+       style="text-shadow: 0px 4px 24px rgba(0,0,0,0.25);">PADEL CAMP</p>
+  </div>
+
+  <!-- Nav -->
+  <nav data-hero-enter="nav"
+       class="absolute right-[24px] top-[313px] md:right-auto md:left-[70px] md:top-auto md:bottom-[160px] z-10">
+    <ul class="flex flex-col gap-[12px] md:gap-[14px] font-inter font-medium
+               text-[18px] md:text-[20px] text-white
+               tracking-[0.72px] md:tracking-[0.8px]
+               items-end md:items-start">
+      {navLinks.map(({ href, label }) => (
+        <li><a {href} class="hover:italic transition-all leading-none">{label}</a></li>
+      ))}
+    </ul>
+  </nav>
+
+  <!-- CTA -->
+  <div data-hero-enter="cta"
+       class="absolute bottom-[24px] md:bottom-[43px] left-0 right-0 px-[24px] md:px-[70px] z-10">
+    <div class="flex flex-col items-center gap-[10px] md:items-end md:gap-[16px]">
+      <Button href="#contact" text="Забронювати" />
+      <div class="flex gap-[8px] md:gap-[24px] items-center text-white font-inter font-bold
+                  text-[18px] md:text-[24px]"
+           style="text-shadow: 0 2px 8px rgba(0,0,0,0.7);">
+        <span>Майорка</span>
+        <span class="font-roboto font-black">•</span>
+        <span>8 –11 травня</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @media (prefers-reduced-motion: no-preference) {
+    @keyframes heroImgZoom {
+      from { transform: scale(1.07); }
+      to   { transform: scale(1); }
+    }
+    @keyframes heroFadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: none; }
+    }
+    [data-hero-img] {
+      animation: heroImgZoom 9s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    [data-hero-enter="text"] {
+      animation: heroFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both;
+    }
+    [data-hero-enter="nav"] {
+      animation: heroFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
+    }
+    [data-hero-enter="cta"] {
+      animation: heroFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
+    }
+  }
+</style>
+
+<script>
+  import { fitText } from '../scripts/fit-text';
+
+  function run(): void {
+    fitText('[data-fit-hero]', 1.01);
+  }
+
+  document.fonts.load('10px "Anton SC"').then(run).catch(run);
+  window.addEventListener('resize', run);
+</script>

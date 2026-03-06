@@ -1,0 +1,18 @@
+---
+import type { ScheduleDay } from '../data/schedule';
+
+interface Props {
+  item: ScheduleDay;
+}
+const { item } = Astro.props;
+---
+<div class="flex gap-[12px] md:gap-[37px] items-start">
+  <div class="flex flex-col items-center text-action text-center w-[70px] shrink-0">
+    <span class="font-inter font-black text-[36px] md:text-[56px] leading-[36px] md:leading-[56px]">{item.day}</span>
+    <span class="font-inter font-semibold text-[18px] md:text-[24px] leading-[18px] md:leading-[24px]">{item.month}</span>
+  </div>
+  <div class="flex flex-col gap-[4px] md:gap-[8px] text-main flex-1">
+    <h3 class="font-inter font-semibold text-[18px] md:text-[24px] leading-normal">{item.title}</h3>
+    <p class="font-roboto font-normal text-[12px] md:text-[16px] leading-normal">{item.desc}</p>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+.astro/
+
+# IDE
+.idea/
+.vscode/
+
+# Dev tools
+.claude/
+.playwright-mcp/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Vercel
+.vercel/
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# Dev screenshots (root-level artifacts)
+/desktop-*.png
+/mobile-*.png
+/tablet-*.png

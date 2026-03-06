@@ -1,0 +1,18 @@
+---
+interface Props {
+  href?: string;
+  text: string;
+  size?: 'sm' | 'lg';
+  as?: 'a' | 'button';
+  type?: 'button' | 'submit' | 'reset';
+}
+const { href, text, size, as: El = href ? 'a' : 'button', type = 'submit' } = Astro.props;
+
+const sizeClass = size === 'lg'
+  ? "text-[24px] h-[58px] pl-[41px] pr-[49px] pt-[15px] pb-[14px]"
+  : "text-[16px] md:text-[24px] h-[38px] md:h-[58px] px-[24px] md:pl-[41px] md:pr-[49px] md:pt-[15px] md:pb-[14px]";
+---
+{El === 'a'
+  ? <a {href} class:list={["btn-primary", sizeClass]}>{text}</a>
+  : <button {type} class:list={["btn-primary", sizeClass]}>{text}</button>
+}

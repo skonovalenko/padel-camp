@@ -1,0 +1,36 @@
+---
+import ScheduleItem from '../components/ScheduleItem.astro';
+import { assets } from '../config/assets';
+import { schedule } from '../data/schedule';
+---
+<section id="schedule" class="px-[24px] md:px-[70px] py-[24px] w-full">
+  <div class="flex flex-wrap gap-[24px] items-start">
+
+    <!-- Title block -->
+    <div class="flex-1 min-w-[260px] md:min-w-[300px] flex flex-col gap-[24px]" data-animate="slide-left">
+      <div class="flex flex-col">
+        <div>
+          <h2 class="font-inter font-semibold text-[32px] md:text-[64px] text-main
+                     leading-[36px] md:leading-[64px]">Розклад</h2>
+          <div class="h-[5px] md:h-[8px] w-[150px] md:w-[261px] -mt-1">
+            <img src={assets.underlineSchedule} alt="" class="w-full h-full" />
+          </div>
+        </div>
+        <h2 class="font-inter font-semibold text-[32px] md:text-[64px] text-main
+                   leading-[36px] md:leading-[64px]">Padel Camp</h2>
+      </div>
+      <p class="font-inter font-normal text-[12px] md:text-[16px] text-main leading-normal">
+        Програма кемпу поєднує тренування з фокусом на техніку та ігрові ситуації, з можливістю персональних занять із тренером. Учасників чекають відновлюючі сесії йоги та стретчингу, спільні вечірні активності, фотосесії, а також короткі прогулянки мальовничими місцями острова.
+      </p>
+    </div>
+
+    <!-- Schedule list -->
+    <div class="flex-1 min-w-[260px] md:min-w-[300px] flex flex-col gap-[28px]">
+      {schedule.map((item, i) => (
+        <div data-animate="fade-up" data-delay={String(i * 100)}>
+          <ScheduleItem item={item} />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

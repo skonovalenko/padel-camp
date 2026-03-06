@@ -1,0 +1,27 @@
+---
+---
+<footer class="bg-main">
+  <div class="overflow-hidden h-[12vw] md:h-auto" data-animate="fade-up">
+    <h1 data-fit-footer
+        class="font-anton text-bg block m-0 whitespace-nowrap"
+        style="line-height: 0.85; margin-top: -0.1em; text-align: right;">
+      vamos! vamos!
+    </h1>
+  </div>
+  <p data-animate="fade-up" data-delay="150"
+     class="font-inter text-bg/50 text-center
+            text-[11px] md:text-[16px] py-[8px] md:py-[16px]">
+    ©Copyright 2026, All Rights Reserved
+  </p>
+</footer>
+
+<script>
+  import { fitText } from '../scripts/fit-text';
+
+  function run(): void {
+    fitText('[data-fit-footer]');
+  }
+
+  document.fonts.load('10px "Anton SC"').then(run).catch(run);
+  window.addEventListener('resize', run);
+</script>
